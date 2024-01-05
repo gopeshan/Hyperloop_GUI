@@ -1,1 +1,108 @@
+/* General Styling Applied Pagewide */
+:root { 
+    --pod-width: 0%;
+    /* Variable used in determining pod icon position  */
+}
 
+ *{
+    margin: -5;
+    padding: 0;
+    box-sizing: content-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    max-height: 800px; 
+}
+
+/* General Body */
+body{
+    background: black;
+}
+
+/* Nav */
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111016;
+    padding: 2px 5%;
+    position: sticky;
+    min-height: 200px; 
+}
+
+.nav-left, .nav-right{
+    display: flex;
+    align-items: center
+}
+
+.logo{
+    width: 750px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.event{
+    font-size: 25px;
+    display: flex;
+    color: #ffffff;
+}
+
+.event p{
+    font-size: 20px;
+    display: inline;
+}
+
+.event a{
+    color: grey;
+    font-size: 18px;
+    display: flex; 
+    margin-top: 20px; 
+}
+
+.date{
+    border-radius: 30px;
+    height: 125px;
+    width: 125px;
+    margin-right: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px black; 
+}
+
+.date span{
+    background: rgba(238,188,49,255);
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 20px;
+    padding: 5px 0;
+}
+
+.info {
+    font-size: 20px;
+    margin-top: -12px; 
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+    padding-top: 10px;
+}
+
+/* left side bar menu*/
+.left-sidebar{
+    top: 60px;
+    align-self: sticky;
+    position: sticky;
+    flex-basis: 100px;
+    margin-right: 50px;
+}
+
+.right {
+    flex-basis: 200px;
+    margin-left: 50px;
+  }
