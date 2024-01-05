@@ -222,3 +222,336 @@ nav{
     height: 600px; 
     margin-left: -8px;  
 }
+
+/* main dashboard*/
+
+#dashboardMiddle {
+    display: none; 
+    position: absolute; 
+    left: 325px; 
+    top: 250px; 
+    width: 1475px; 
+    height: 780px; 
+    color: white; 
+}
+
+.speedometer-container {
+    width: 400px;
+    height: 400px;
+    top: 60px; 
+    position: absolute;
+  }
+  
+.speedometer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 20px;
+    left: 300px;
+    background: #111016;
+    border-radius: 50%;
+    overflow: hidden;
+}
+  
+.dial {
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    background: black;
+    border-radius: 50%;
+}
+  
+.needle {
+    width: 6px;
+    height: 50%;
+    position: relative;
+    top: 0;
+    left: 50%;
+    background: rgba(238,188,49,255);
+    transform-origin: bottom center;
+    transform: rotate(0deg);
+    transition: all 0.5s ease-in-out;
+}
+  
+.speedometer-text {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+  
+.value {
+    display: block;
+    font-size: 48px;
+    color: white;
+}
+  
+.unit {
+    display: block;
+    font-size: 24px;
+    color: grey;
+}
+
+#accelerationTime {
+    position: absolute; 
+    left: 132px; 
+    display: none; 
+}
+
+#accelerationGraph {
+    position: absolute; 
+    top: 515px; 
+    left: 100px; 
+    border-bottom: solid #111016 1px;
+    border-left: solid #111016 1px;
+}
+
+#rpmGraph {
+    position: absolute; 
+    top: 515px; 
+    right: 600px; 
+    border-bottom: solid #111016 1px;
+    border-left: solid #111016 1px;
+}
+
+.navigationButtons {
+    position: absolute; 
+    height: 150px; 
+    width: 150px; 
+    background-color: #111016;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer; 
+}
+
+.navigationButtons p {
+    position: relative;
+    top: 25px; 
+    font-size: 30px;
+    font-weight: bold; 
+}
+
+#start,#check, #underway {
+top: 200px; 
+left: 50px; 
+background-color: #111016 ;
+z-index: 1;
+}
+
+#underway {
+    background-color: black;
+    z-index: 0; 
+}
+
+#stop {
+top: 200px; 
+left: 800px; 
+z-index: 2;
+}
+
+#reset {
+    top: 200px; 
+    left: 800px; 
+    z-index: 1;
+}
+
+#stop p {
+    color: red; 
+}
+
+#start p {
+    color: #32CD32; 
+}
+
+.pod-mode {  
+    position: relative;
+    background-color: #111016;
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%;
+    display: inline-flex; 
+    justify-content: center;
+    margin-right: 120px; 
+    top: -10px;
+    border: white solid 2px; 
+}
+
+.pod-mode h3 {
+    position: absolute;
+    top: -5px;   
+    color: white; 
+}
+
+.pod-mode p {
+    position: absolute; 
+    left: 55px; 
+    top: -15px;  
+    font-size: 12px;
+}
+
+.initiation-line {
+    background-color: white;
+    height: 3px; 
+    width: 130px; 
+    position: absolute; 
+    left: 50px; 
+    top: 25px; 
+    display: none; 
+}
+
+.trip-bar {
+    position: absolute; 
+    bottom: 0px; 
+    left: -100px; 
+}
+
+.trip-bar h2 {
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-top: 40px;
+    margin-bottom: 5px; 
+    color: white; 
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 20px; 
+}
+
+.trip-progress {
+    background: gray; 
+    width: 1350px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.trip-progress div {
+    height: 10px; 
+    width: 0%; 
+    background: rgba(238,188,49,255); 
+    border-radius: 3px;
+}
+
+.trip-progress div img {
+    width: 150px; 
+    position: relative; 
+    bottom: 18px; 
+    float: right;
+    left: 2px; 
+    top: -33px; 
+}
+
+.pod-distance {
+    animation: pod-distance 3s linear forwards;
+}
+
+@keyframes pod-distance {
+    100%{
+        width: var(--pod-width); 
+    }
+}
+
+#tripDistance {
+    position: absolute; 
+    right: 0px; 
+    top: -5px; 
+    font-size: 20px;
+}
+
+#startPosition {
+    position: absolute; 
+    left: 0px; 
+    top: -5px; 
+    font-size: 20px;
+}
+
+#battery-container {
+    position: absolute; 
+    right: 100px; 
+    top: 80px;
+    width: 300px;
+    height: 300px; 
+}
+  #battery-container h1 {
+    color: white; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative; 
+    top: -210px;
+    right: -85px; 
+    font-size: 50px;
+}
+
+#battery-container p {
+    position: absolute;
+    top: -110px; 
+    right: -20px; 
+    width: 350px; 
+}
+
+#navigationData {
+    position: absolute; 
+    top: 420px; 
+    right: 80px;
+    width: 350px; 
+}
+
+#navigationData .data-text {
+    width: 165px; 
+}
+
+#dashboardDivider {
+   position: absolute; 
+   right: 475px;  
+}
+
+/* main podsystem*/
+#podsystemMiddle {
+    display: none; 
+    position: absolute; 
+    left: 325px; 
+    top: 250px; 
+    width: 800px;
+    height: 700px; 
+    color: white; 
+}
+
+.telemetry {
+width: 800px;   
+position: absolute; 
+}
+
+.telemetry p {
+padding-left: 15px; 
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+font-size: 26px; 
+padding-bottom: 6px; 
+border-bottom: solid white 2px; 
+}
+
+#motorGraph {
+max-height: 250px;
+}
+
+#batteryGraph {
+max-height: 250px;
+top: 350px; 
+}
+
+#speedGraph {
+    padding: 0 20px;
+}
+
+#podsystemDivider {
+    position: absolute;  
+    left: 840px; 
+}
+
+.divider {
+    width: 2px; 
+    height: 500px; 
+    border-right: solid white 2px;
+    top: 100px; 
+}
