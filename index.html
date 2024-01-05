@@ -78,7 +78,105 @@
         <div class="menu-right-sidebar" id="menuSidebar">
                 <img src="qpod.png" class="qpod">
         </div>
-	
 
+        <!-----Dashboard Center Content----->
+        <div class ="dashboard-middle" id="dashboardMiddle">
+            <!-- Acceleration and RPM graphs -->
+            <canvas id="accelerationGraph"></canvas>
+            <canvas id="rpmGraph"></canvas> 
+            <!-- Navigation Buttons (some appear stacked on top of eachother depending on situation) -->
+            <div class="navigationButtons" id="stop"><p>Stop</p></div>
+            <div class="navigationButtons" id="start"><p>Launch</p></div>
+            <div class="navigationButtons" id="check"><p>Check</p></div>
+            <div class="navigationButtons" id="reset"><p>Reset</p></a></div>
+            <div class="navigationButtons" id="underway"></div>
+            <!-- Pod Status indicator below the navigation bar  -->
+            <div class="pod-status" id="pod-status">
+                <div class="pod-mode" id="off">
+                    <h3>1</h3>
+                    <p>Off</p>
+                    <div class="initiation-line" id="off-line"></div>
+                </div>
+                <div class="pod-mode" id="armed">
+                    <h3>2</h3>
+                    <p>Armed</p>
+                    <div class="initiation-line" id="armed-line"></div>
+                </div>
+                <div class="pod-mode" id="accelerating">
+                    <h3>3</h3>
+                    <p>Accelerating</p>
+                    <p id="accelerationTime"></p>
+                    <div class="initiation-line" id="accelerating-line"></div>
+                </div>
+                <div class="pod-mode" id="coasting">
+                    <h3>4</h3>
+                    <p>Coasting</p>
+                    <div class="initiation-line" id="coasting-line"></div>
+                </div>
+                <div class="pod-mode" id="braking">
+                    <h3>5</h3>
+                    <p>Braking</p>
+                    <div class="initiation-line" id="braking-line"></div>
+                </div>
+                <div class="pod-mode" id="stopped">
+                    <h3>6</h3>
+                    <p>Stopped</p>
+                </div>
+            </div>
+            <!-- Pod trip visualization bar  -->
+            <div class="trip-bar">
+                <div class="trip-progress"> 
+                    <div class="pod-distance" id="pod-distance"><img src="podIcon.png"></div>
+                </div>
+                <p id="startPosition">0</p>
+                <p id="tripDistance">10000</p>
+            </div>
+            <!-- Speedometer and associated text/components -->
+            <div class="speedometer-container">
+                <div class="speedometer">
+                  <div class="dial"></div>
+                  <div class="needle"></div>
+                  <div class="speedometer-text">
+                    <span class="value">0</span>
+                    <span class="unit">km/h</span>
+                  </div>
+                </div>
+              </div>
+              <div class="divider" id="dashboardDivider"></div>
+              <!-- Battery indicator -->
+            <div id="battery-container">
+                <p class="data-header">Main Battery Life</p>
+                <canvas id="battery-chart"></canvas>
+                <h1 id="batteryLevel">100%</h1>
+            </div>
+            <!-- Sensor data for the navigations on dashboard -->
+            <div class="sensor-data" id="navigationData">
+                <p class="data-header">Navigation</p>
+                <div class="data-holder">
+                    <div class="data-text">
+                        <p class="data-name">RPM (r/min):</p>
+                        <p class="data-value" id="rpm">0</p>
+                    </div>
+                    <div class="data-text">
+                        <p class="data-name">Acceleration (m/s<sup>2</sup>):</p>
+                        <p class="data-value" id="acceleration">0</p>
+                    </div>
+                    <div class="data-text">
+                        <p class="data-name">Trip Distance (m):</p>
+                        <p class="data-value" id="travelledDistance">0</p>
+                    </div>
+                    <div class="data-text">
+                        <p class="data-name">Speed (km/h):</p>
+                        <p class="data-value" id="speed">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>	
+
+
+
+
+
+	    
       </body>
 </html>
