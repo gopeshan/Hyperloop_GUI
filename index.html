@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyperloop Interface</title>
+    <link rel="stylesheet" href="style.css"> 
+    <script src="https://kit.fontawesome.com/2910d20e55.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="favicon1.png" type ="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <img id="homeLogo" src="logo1.png" class="logo">
+        </div>  
+	<!-----Create left event in the nav bar----->
+        <div class="event">
+            <div class="date">
+                <h2 id="dayLeft">4</h2>
+                <span id="monthLeft">April</span>
+            </div>
+            <div class="info">
+                <h4 id="eventLeft">Finish GUI</h4>
+                <p><i class="fa-solid fa-location-dot"></i> </p><p id="locationLeft">Stirling Hall</p>
+                <u><a href="https://queenshyperloop.ca/" target="_blank">More Info</a></u>
+            </div>
+        </div>
+	<!-----Create right event in the nav bar----->
+        <div class="event">
+            <div class="date">
+                <h2 id="dayRight">25</h2>
+                <span id="monthRight">April</span>
+            </div>
+            <div class="info">
+                <h4 id="eventRight">Final Presentation</h4>
+                <p><i class="fa-solid fa-location-dot"></i> </p><p id="locationRight">Mitchell Hall</p>
+                <u><a href="https://github.com/MOMOtrial/Hyperloop-GUI" target="_blank">More Info</a></u>
+            </div>
+        </div>
+    </nav>
 
+    <div class="container">
+        <!-----Left Sidebar (visible on all pages)----->
+        <div class="left-siderbar">
+            <div class="shortcuts">
+                <h4>Quick Access</h4>
+                <p id="returnHome"><i class="fa-solid fa-clock-rotate-left"></i> Return Home </p>
+                <p id="tripProgress"><i class="fa-solid fa-compass"></i> Trip Progress </p> 
+                <p id="podStatus"><i class="fa-solid fa-battery-half"></i> Pod Status </p> 
+                <p id="errors"><i class="fa-solid fa-triangle-exclamation"></i> Notifications </p>
+                <p id="userInputs"><i class="fa-solid fa-sliders"></i> User Inputs </p>
+            </div>
+        </div>
+
+
+      </body>
+</html>
