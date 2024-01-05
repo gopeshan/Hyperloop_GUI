@@ -258,7 +258,83 @@
             </div>
         </div>
 
+        <!-----Alerts Center Content----->
+        <div class ="alerts-middle" id="alertsMiddle">
+            <h2>No System Alerts Detected</h2>
 
+                <!-- Green Positive Alerts -->
+                <div id="alert-success-save" class="alert success">
+                    <span class="closebtn">&times;</span>  
+                    <p id="alert-success-message-save"></p>
+                </div>
+
+                <div id="alert-success-stop" class="alert success">
+                    <span class="closebtn">&times;</span>  
+                    <p id="alert-success-message-stop"></p>
+                </div>
+        
+                <!-- Orange Warning Alerts -->
+                <div id="alert-warning-check" class="alert warning">
+                    <span class="closebtn">&times;</span>  
+                    <p id="alert-warning-message-check"></p>
+                </div>
+
+                <div id="alert-warning-battery50" class="alert warning">
+                    <span class="closebtn">&times;</span>  
+                    <p id="alert-warning-message-battery50"></p>
+                </div>
+
+                <div id="alert-warning-battery25" class="alert warning">
+                    <span class="closebtn">&times;</span>  
+                    <p id="alert-warning-message-battery25"></p>
+                </div>
+        
+                <!-- Yellow Error Alerts -->
+                <div id="alert-error-dead" class="alert error">
+                    <span class="closebtn">&times;</span>  
+                    <p id="alert-error-message-dead"></p>
+                </div>
+
+                <div id="alert-error-launch" class="alert error">
+                    <span class="closebtn">&times;</span>  
+                    <p id="alert-error-message-launch"></p>
+                </div>
+        </div>
+
+        <!-----Inputs Content----->
+        <div class ="inputs-middle">
+            <div id="inputsMiddle">
+                <form>
+                <fieldset>
+                    <label for="trip-distance">Trip Distance<input id="trip-distance" name="trip-distance" type="text" placeholder="input meters" maxlength="6"/></label>
+                    <label for="acceleration-value">Acceleration<input id="acceleration-value" name="acceleration-value" type="text" placeholder="input meters per second squared" maxlength="5"/></label>
+                    <label for="acceleration-time">Acceleration Time<input id="acceleration-time" name="acceleration-time" type="text" placeholder="input seconds" maxlength="3"/></label>
+                    <label for="rpm-value">Revolutions Per Minute<input id="rpm-value" name="rpm-value" type="text" placeholder="input revolutions per minute" maxlength="5"/></label>
+                    <label for="vessel-pressure">Vessel Pressure<input id="vessel-pressure" name="vessel-pressure" type="text" placeholder="input kilopascals" maxlength="4"/></label>
+                    <label for="air-tank-pressure">Air Tank Pressure<input id="air-tank-pressure" name="air-tank-pressure" type="text" placeholder="input kilopascals" maxlength="4"/></label>
+                    <label for="12v-converter-voltage">12V Converter Voltage<input id="12v-converter-voltage" name="12v-converter-voltage" type="text" placeholder="input voltage" maxlength="4"/></label>
+                    <label for="5v-converter-voltage">5V Converter Voltage<input id="5v-converter-voltage" name="5v-converter-voltage" type="text" placeholder="input voltage" maxlength="4"/></label>
+                    <label for="24v-battery-voltage">24V Battery Voltage<input id="24v-battery-voltage" name="24v-battery-voltage" type="text" placeholder="input voltage" maxlength="4"/></label>
+                    <label for="main-battery-voltage">Main Battery Voltage<input id="main-battery-voltage" name="main-battery-voltage" type="text" placeholder="input voltage" maxlength="4"/></label>
+                    <label for="24v-battery">24V Battery Temperature<input id="24v-battery" name="24v-battery" type="text" placeholder="input degrees celcius" maxlength="4"/></label>
+                    <label for="motor-temperature">Motor Temperature<input id="motor-temperature" name="motor-temperature" type="text" placeholder="input degrees celcius" maxlength="4"/></label>
+                    <label for="liquid-cooling">Liquid Cooling Temperature<input id="liquid-cooling" name="liquid-cooling" type="text" placeholder="input degrees celcius" maxlength="4"/></label>
+                    <label for="main-battery">Main Battery Temperature<input id="main-battery" name="main-battery" type="text" placeholder="input degrees celcius" maxlength="4"/></label>
+                    <label for="electric-brakes">Electric Brakes Temperature<input id="electric-brakes" name="electric-brakes" type="text" placeholder="input degrees celcius" maxlength="4"/></label>
+                    <label for="friction-brakes">Friction Brakes Temperature<input id="friction-brakes" name="friction-brakes" type="text" placeholder="input degrees celcius" maxlength="4"/></label>
+                    <label for="event-left">Event Left<input id="event-left" name="event-left" type="text" placeholder="input event" maxlength="30"/></label>
+                    <label for="day-left">Day Left<input id="day-left" name="day-left" type="text" placeholder="input day" maxlength="2"/></label>
+                    <label for="month-left">Month Left<input id="month-left" name="month-left" type="text" placeholder="input month" maxlength="9"/></label>
+                    <label for="location-left">Location Left<input id="location-left" name="location-left" type="text" placeholder="input location" maxlength="25"/></label>
+                    <label for="event-right">Event Right<input id="event-right" name="event-right" type="text" placeholder="input event" maxlength="30"/></label>
+                    <label for="day-right">Day Right<input id="day-right" name="day-right" type="text" placeholder="input day" maxlength="2"/></label>
+                    <label for="month-right">Month Right<input id="month-right" name="month-right" type="text" placeholder="input month" maxlength="9"/></label>
+                    <label for="location-right">Location Right<input id="location-right" name="location-right" type="text" placeholder="input location" maxlength="25"/></label>
+                  </fieldset>
+                  <input id="saveChanges" type="button" value="Save Changes" onclick="locallyStore()"/>
+                </form>
+            </div>
+        </div>
 
 	    
       </body>
