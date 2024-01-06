@@ -608,3 +608,143 @@ const reset = document.getElementById("reset"); //reset button on the navigation
       location.reload();  //resets by reloading the web page
     });
 //end of navigation buttons 
+
+  //if all systems are stopped, arm the pod
+function readyCheck () {
+  if ( //checks if the pod is stationary and the battery is a suitable level 
+    +document.getElementById("acceleration").innerHTML === 0 &&
+    +document.getElementById("rpm").innerHTML === 0 &&
+    batteryLevel >= 25 &&
+    podStatus === "off"
+    ) {
+    podStatus = "armed";  //arms the pod if true 
+    return true;
+    } else {
+      return false; 
+    }
+}
+
+//when the system is turned on, enable the battery and speed guages
+function checkCondition() { //this function exists so that when the pod is turned off the checkCondition fails and the gauges are able to turn off 
+  if (podStatus != "off") {
+    let speedInterval, batteryInterval;
+
+    speedInterval = setInterval(function() { //this interval updating every second updates the speedometer with a new time 
+      if (podStatus != "off") {
+        let speed = document.getElementById("speed").innerHTML; 
+        updateSpeedometer(speed);
+      } else {
+        clearInterval(speedInterval);
+      }
+    }, 1000); //this may appear deceiving, the 1 second interval is not controlled through this 1000, as the speed is calculated using a counter from 1-10 in code written above
+    
+    batteryInterval = setInterval(() => { //interval for the battery status 
+      if (podStatus != "off") {
+        if (batteryLevel > 0) {
+          batteryLevel -= 1; //decreases the battery life by 1 percent every 5 seconds 
+          document.getElementById("batteryLevel").innerHTML = batteryLevel + "%";  //updates the visual battery level 
+          chart.data.datasets[0].data[0] = batteryLevel;
+          chart.data.datasets[0].data[1] = 100 - batteryLevel;
+          if(batteryLevel <= 50 && batteryLevel >= 25) { //if the battery level falls below 50% a warning alert is sent out 
+            chart.data.datasets[0].backgroundColor = ['rgba(238,188,49,255)', '#111016']; 
+            chart.data.datasets[0].hoverBackgroundColor = ['white', '#111016']; 
+
+            document.getElementById("popup-warning-message-battery50").innerHTML = "Warning! Battery life has reached 50% " + new Date().toLocaleTimeString();
+            document.getElementById("alert-warning-message-battery50").innerHTML = "Warning! Battery life has reached 50% " + new Date().toLocaleTimeString();
+            document.getElementById("popup-warning-battery50").style.display = "flex";
+            document.getElementById("alert-warning-battery50").style.display = "flex";
+            setTimeout(function() {
+              document.getElementById("popup-warning-battery50").style.display = "none";
+            }, 5000); 
+        
+          } else if (batteryLevel <= 25) { //if the battery level is below 25% another warning is sent out 
+            chart.data.datasets[0].backgroundColor = ['red', '#111016']; 
+            chart.data.datasets[0].hoverBackgroundColor = ['red', '#111016']; 
+
+            document.getElementById("popup-warning-message-battery25").innerHTML = "Warning! Battery life has reached 25% " + new Date().toLocaleTimeString();
+            document.getElementById("alert-warning-message-battery25").innerHTML = "Warning! Battery life has reached 25% " + new Date().toLocaleTimeString();
+            document.getElementById("popup-warning-battery25").style.display = "flex";
+            document.getElementById("alert-warning-battery25").style.display = "flex";
+            setTimeout(function() {
+              document.getElementById("popup-warning-battery25").style.display = "none";
+            }, 5000); 
+
+          }
+          chart.update();
+        } else { //this means the battery has died 
+
+          //in this scenerio another error message is sent notifying the user of the dead battery 
+          document.getElementById("popup-error-message-dead").innerHTML = "Error! Battery has died " + new Date().toLocaleTimeString();
+            document.getElementById("alert-error-message-dead").innerHTML = "Error! Battery has died " + new Date().toLocaleTimeString();
+            document.getElementById("popup-error-dead").style.display = "flex";
+            document.getElementById("alert-error-dead").style.display = "flex";
+            setTimeout(function() {
+              document.getElementById("popup-error-dead").style.display = "none";
+            }, 5000); 
+
+          clearInterval(batteryInterval); //if the battery is dead it clears the intervals of the battery to stop the code from running  
+        }
+      } else {
+        clearInterval(batteryInterval); //if the pod status does equal off there is no need for the battery to update 
+      }
+    }, 5000);
+  } else { 
+    setTimeout(checkCondition, 100); //this allows the code to consistently check if there is a change in the podStatus causing the condition to evaluate to true (100ms checks)
+  }
+}
+//end of battery and speed intervals
+
+//when the pod is launched, enable voltage, temp, rpm acceleration and distance guages
+function checkArmed() { //checks if the pod is armed  
+  if (podStatus != "armed" && podStatus != "off") {
+    let voltageInterval, tempInterval, rpmInterval, accelerationInterval, distanceInterval;
+
+    voltageInterval = setInterval(() => { //allows the voltage graph to begin populating 
+      if (podStatus != "armed" && podStatus != "off") {
+        addDataVoltage();
+      } else {
+        clearInterval(voltageInterval);
+      }
+    }, 1000);
+    
+    tempInterval = setInterval(() => { //alllows the temperature graph to begin populating 
+      if (podStatus != "armed" && podStatus != "off") {
+        addDataTemp();
+      } else {
+        clearInterval(tempInterval);
+      }
+    }, 5000);
+    
+    rpmInterval = setInterval(() => { //alllows the rpm graph to begin populating 
+      if (podStatus != "armed" && podStatus != "off") {
+        addDataRPM();
+      } else {
+        clearInterval(rpmInterval);
+      }
+    }, 500);
+    
+    accelerationInterval = setInterval(() => { //alllows the acceleration graph to begin populating 
+      if (podStatus != "armed" && podStatus != "off") {
+        addDataAcceleration();
+      } else {
+        clearInterval(accelerationInterval);
+      }
+    }, 500);
+    
+    distanceInterval = setInterval(() => { //begins to update the pod on the progress bar ensuring that all speeds and accelerations are showcased visually 
+      if (podStatus != "armed" && podStatus != "off" && +document.getElementById("travelledDistance").innerHTML <= +document.getElementById("tripDistance").innerHTML) {
+        if(podStatus === "accelerating" || podStatus === "coasting" || podStatus === "braking") {
+        tripLength += (+((+document.getElementById("speed").innerHTML)/3.6));
+        document.getElementById("travelledDistance").innerHTML = tripLength.toFixed(2); 
+        }
+        updatePodDistance();
+      } else {
+        clearInterval(distanceInterval);
+      }
+    }, 1000); //updates the pod every second 
+
+  } else { 
+    setTimeout(checkArmed, 100); //checks every 100ms until the if statement evaluates as true 
+  }
+}
+//end of graph and distance interval declarations 
