@@ -825,3 +825,140 @@ checkBraking();
 //end of function calls
 
 } //end of window onload function 
+
+//Beginning of local storage function, each item is pulled from the input location within html and uses javascript to upload it to chromes web local storage 
+//this function is called when a click is detected on the save changes button on the inputs page 
+function locallyStore()  { 
+  var retrieveLocationRight = document.getElementById("location-right").value; 
+  if(retrieveLocationRight != undefined && retrieveLocationRight != '')  {
+  var locationRight = localStorage.setItem("Location Right", retrieveLocationRight);
+  document.getElementById("locationRight").innerHTML = localStorage.getItem("Location Right"); }
+
+  var retrieveMonthRight = document.getElementById("month-right").value; 
+  if(retrieveMonthRight != undefined && retrieveMonthRight != '') {
+  var monthRight = localStorage.setItem("Month Right", retrieveMonthRight);
+  document.getElementById("monthRight").innerHTML = localStorage.getItem("Month Right"); }
+
+  var retrieveDayRight = document.getElementById("day-right").value; 
+  if(retrieveDayRight != undefined && retrieveDayRight != '') { 
+  var dayRight = localStorage.setItem("Day Right", retrieveDayRight);
+  document.getElementById("dayRight").innerHTML = localStorage.getItem("Day Right"); }
+  
+  var retrieveEventRight = document.getElementById("event-right").value; 
+  if(retrieveEventRight != undefined && retrieveEventRight != '') { 
+  var eventRight = localStorage.setItem("Event Right", retrieveEventRight);
+  document.getElementById("eventRight").innerHTML = localStorage.getItem("Event Right"); }
+
+  var retrieveLocationLeft = document.getElementById("location-left").value; 
+  if(retrieveLocationLeft != undefined && retrieveLocationLeft != '') {
+  var locationLeft = localStorage.setItem("Location Left", retrieveLocationLeft);
+  document.getElementById("locationLeft").innerHTML = localStorage.getItem("Location Left"); }
+
+  var retrieveMonthLeft = document.getElementById("month-left").value; 
+  if(retrieveMonthLeft != undefined && retrieveMonthLeft != '') { 
+  var monthLeft = localStorage.setItem("Month Left", retrieveMonthLeft);
+  document.getElementById("monthLeft").innerHTML = localStorage.getItem("Month Left"); }
+
+  var retrieveDayLeft = document.getElementById("day-left").value; 
+  if(retrieveDayLeft != undefined && retrieveDayLeft != '') { 
+  var dayLeft = localStorage.setItem("Day Left", retrieveDayLeft);
+  document.getElementById("dayLeft").innerHTML = localStorage.getItem("Day Left"); } 
+  
+  var retrieveEventLeft = document.getElementById("event-left").value; 
+  if(retrieveEventLeft != undefined && retrieveEventLeft != '') {  
+  var eventLeft = localStorage.setItem("Event Left", retrieveEventLeft);
+  document.getElementById("eventLeft").innerHTML = localStorage.getItem("Event Left"); }
+
+  var retrieveFrictionBrakes = document.getElementById("friction-brakes").value; 
+  if(retrieveFrictionBrakes != undefined && retrieveFrictionBrakes != '') {  
+  var frictionBrakes = localStorage.setItem("Friction Brakes Temperature", retrieveFrictionBrakes);
+  document.getElementById("frictionBrakes").innerHTML = localStorage.getItem("Friction Brakes Temperature"); }
+
+  var retrieveElectricBrakes = document.getElementById("electric-brakes").value; 
+  if(retrieveElectricBrakes != undefined && retrieveElectricBrakes != '') {  
+  var ElectricBrakes = localStorage.setItem("Electric Brakes Temperature", retrieveElectricBrakes);
+  document.getElementById("electricBrakes").innerHTML = localStorage.getItem("Electric Brakes Temperature"); }
+
+  var retrieveMainBattery = document.getElementById("main-battery").value; 
+  if(retrieveMainBattery != undefined && retrieveMainBattery != '') {  
+  var MainBattery = localStorage.setItem("Main Battery Temperature", retrieveMainBattery);
+  document.getElementById("mainBattery").innerHTML = localStorage.getItem("Main Battery Temperature"); }
+
+  var retrieveMotorTemperature = document.getElementById("motor-temperature").value; 
+  if(retrieveMotorTemperature != undefined && retrieveMotorTemperature != '') {  
+  var MotorTemperature = localStorage.setItem("Motor Temperature", retrieveMotorTemperature);
+  document.getElementById("motor").innerHTML = localStorage.getItem("Motor Temperature"); }
+
+  var retrieveLiquidCooling = document.getElementById("liquid-cooling").value; 
+  if(retrieveLiquidCooling != undefined && retrieveLiquidCooling != '') {  
+  var LiquidCooling = localStorage.setItem("Liquid Cooling Temperature", retrieveLiquidCooling);
+  document.getElementById("liquidCooling").innerHTML = localStorage.getItem("Liquid Cooling Temperature"); }
+
+  var retrieve24VBattery = document.getElementById("24v-battery").value; 
+  if(retrieve24VBattery != undefined && retrieve24VBattery != '') {  
+  var TwentyFourVBattery = localStorage.setItem("24V Battery Temperature", retrieve24VBattery);
+  document.getElementById("24VBattery").innerHTML = localStorage.getItem("24V Battery Temperature"); }
+
+  var retrieveMainBatteryVoltage = document.getElementById("main-battery-voltage").value; 
+  if(retrieveMainBatteryVoltage != undefined && retrieveMainBatteryVoltage != '') {  
+  var MainBatteryVoltage = localStorage.setItem("Main Battery Voltage", retrieveMainBatteryVoltage);
+  document.getElementById("mainBatteryVoltage").innerHTML = localStorage.getItem("Main Battery Voltage"); }
+
+  var retrieve24VBatteryVoltage = document.getElementById("24v-battery-voltage").value; 
+  if(retrieve24VBatteryVoltage != undefined && retrieve24VBatteryVoltage != '') {  
+  var TwentyVBatteryVoltage = localStorage.setItem("24V Battery Voltage", retrieve24VBatteryVoltage);
+  document.getElementById("24VBatteryVoltage").innerHTML = localStorage.getItem("24V Battery Voltage"); }
+
+  var retrieve5VConverterVoltage = document.getElementById("5v-converter-voltage").value; 
+  if(retrieve5VConverterVoltage != undefined && retrieve5VConverterVoltage != '') {  
+  var FiveVoltConverterVoltage = localStorage.setItem("5V Converter Voltage", retrieve5VConverterVoltage);
+  document.getElementById("5VConverterVoltage").innerHTML = localStorage.getItem("5V Converter Voltage"); }
+
+  var retrieve12VConverterVoltage = document.getElementById("12v-converter-voltage").value; 
+  if(retrieve12VConverterVoltage != undefined && retrieve12VConverterVoltage != '') {  
+  var TwelveVoltConverterVoltage = localStorage.setItem("12V Converter Voltage", retrieve12VConverterVoltage);
+  document.getElementById("12VConverterVoltage").innerHTML = localStorage.getItem("12V Converter Voltage"); }
+  
+  var retrieveAirTankPressure = document.getElementById("air-tank-pressure").value; 
+  if(retrieveAirTankPressure != undefined && retrieveAirTankPressure != '') {  
+  var airTankPressure = localStorage.setItem("Air Tank Pressure", retrieveAirTankPressure);
+  document.getElementById("airTankPressure").innerHTML = localStorage.getItem("Air Tank Pressure"); }
+
+  var retrieveVesselPressure = document.getElementById("vessel-pressure").value; 
+  if(retrieveVesselPressure != undefined && retrieveVesselPressure != '') {  
+  var vesselPressure = localStorage.setItem("Vessel Pressure", retrieveVesselPressure);
+  document.getElementById("vesselPressure").innerHTML = localStorage.getItem("Vessel Pressure"); }
+
+  var retrieveAccelerationTime = document.getElementById("acceleration-time").value; 
+  if(retrieveAccelerationTime != undefined && retrieveAccelerationTime != '' && retrieveAccelerationTime != 0) {  
+  var accelerationTime = localStorage.setItem("Acceleration Time", retrieveAccelerationTime);
+  document.getElementById("accelerationTime").innerHTML = "(" + Math.ceil(localStorage.getItem("Acceleration Time")) + "s)";}
+
+  var retrieveRPM = document.getElementById("rpm-value").value; 
+  if(retrieveRPM != undefined && retrieveRPM != '') {  
+  var rpmValue = localStorage.setItem("RPM", retrieveRPM);
+  document.getElementById("rpm").innerHTML = localStorage.getItem("RPM"); }
+
+  var retrieveAcceleration = document.getElementById("acceleration-value").value; 
+  if(retrieveAcceleration != undefined && retrieveAcceleration != '') {  
+  var Acceleration = localStorage.setItem("Acceleration", retrieveAcceleration);
+  document.getElementById("acceleration").innerHTML = localStorage.getItem("Acceleration"); }
+
+  var retrieveTripDistance = document.getElementById("trip-distance").value; 
+  if(retrieveTripDistance != undefined && retrieveTripDistance != '') {  
+  var TripDistance = localStorage.setItem("Trip Distance", retrieveTripDistance);
+  document.getElementById("tripDistance").innerHTML = localStorage.getItem("Trip Distance"); }
+  
+  document.getElementById("menuSidebar").style.display = "flex"
+  document.getElementById("menu-middle").style.display = "flex"
+  document.getElementById("inputsMiddle").style.display = "none"; 
+
+    //if the changes are saved a notification will inform the user 
+    document.getElementById("popup-success-message-save").innerHTML = "Success! Your inputs have been saved. " + new Date().toLocaleTimeString();
+    document.getElementById("alert-success-message-save").innerHTML = "Success! Your inputs have been saved. " + new Date().toLocaleTimeString();
+    document.getElementById("popup-success-save").style.display = "flex";
+    document.getElementById("alert-success-save").style.display = "flex";
+    setTimeout(function() {
+      document.getElementById("popup-success-save").style.display = "none";
+    }, 5000); 
+}
