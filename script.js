@@ -116,3 +116,78 @@ window.onload = function() {
       startupRPM(); 
     });
     //end of page functionality
+
+  //local storage conditionals, currently each individual item is pulled from local storage into the page design, it is done here to ensure it shows upon the page loading 
+if(localStorage.getItem("Location Right")!= undefined) {
+  document.getElementById("locationRight").innerHTML = localStorage.getItem("Location Right"); 
+}
+if(localStorage.getItem("Month Right")!= undefined) {
+  document.getElementById("monthRight").innerHTML = localStorage.getItem("Month Right"); 
+}
+if(localStorage.getItem("Day Right")!= undefined) {
+  document.getElementById("dayRight").innerHTML = localStorage.getItem("Day Right"); 
+}
+if(localStorage.getItem("Event Right")!= undefined) {
+  document.getElementById("eventRight").innerHTML = localStorage.getItem("Event Right"); 
+}
+if(localStorage.getItem("Location Left")!= undefined) {
+  document.getElementById("locationLeft").innerHTML = localStorage.getItem("Location Left"); 
+}
+if(localStorage.getItem("Month Left")!= undefined) {
+  document.getElementById("monthLeft").innerHTML = localStorage.getItem("Month Left"); 
+}
+if(localStorage.getItem("Day Left")!= undefined) {
+  document.getElementById("dayLeft").innerHTML = localStorage.getItem("Day Left"); 
+}
+if(localStorage.getItem("Event Left")!= undefined) {
+  document.getElementById("eventLeft").innerHTML = localStorage.getItem("Event Left"); 
+}
+if(localStorage.getItem("Friction Brakes Temperature")!= undefined) {
+  document.getElementById("frictionBrakes").innerHTML = localStorage.getItem("Friction Brakes Temperature"); 
+}
+if(localStorage.getItem("Electric Brakes Temperature")!= undefined) {
+  document.getElementById("electricBrakes").innerHTML = localStorage.getItem("Electric Brakes Temperature"); 
+}
+if(localStorage.getItem("Main Battery Temperature")!= undefined) {
+  document.getElementById("mainBattery").innerHTML = localStorage.getItem("Main Battery Temperature"); 
+}
+if(localStorage.getItem("Liquid Cooling Temperature")!= undefined) {
+  document.getElementById("liquidCooling").innerHTML = localStorage.getItem("Liquid Cooling Temperature"); 
+}
+if(localStorage.getItem("24V Battery Temperature")!= undefined) {
+  document.getElementById("24VBattery").innerHTML = localStorage.getItem("24V Battery Temperature"); 
+}
+if(localStorage.getItem("Main Battery Voltage")!= undefined) {
+  document.getElementById("mainBatteryVoltage").innerHTML = localStorage.getItem("Main Battery Voltage"); 
+}
+if(localStorage.getItem("24V Battery Voltage")!= undefined) {
+  document.getElementById("24VBatteryVoltage").innerHTML = localStorage.getItem("24V Battery Voltage"); 
+}
+if(localStorage.getItem("5V Converter Voltage")!= undefined) {
+  document.getElementById("5VConverterVoltage").innerHTML = localStorage.getItem("5V Converter Voltage"); 
+}
+if(localStorage.getItem("12V Converter Voltage")!= undefined) {
+  document.getElementById("12VConverterVoltage").innerHTML = localStorage.getItem("12V Converter Voltage"); 
+}
+if(localStorage.getItem("Air Tank Pressure")!= undefined) {
+  document.getElementById("airTankPressure").innerHTML = localStorage.getItem("Air Tank Pressure"); 
+}
+if(localStorage.getItem("Vessel Pressure")!= undefined) {
+  document.getElementById("vesselPressure").innerHTML = localStorage.getItem("Vessel Pressure"); 
+}
+if(localStorage.getItem("Motor Temperature")!= undefined) {
+  document.getElementById("motor").innerHTML = localStorage.getItem("Motor Temperature"); 
+}
+if(localStorage.getItem("RPM")!= undefined) {
+  document.getElementById("rpm").innerHTML = localStorage.getItem("RPM"); 
+}
+if(localStorage.getItem("Acceleration Time")!= undefined && +localStorage.getItem("Acceleration Time") != 0) {
+  document.getElementById("accelerationTime").innerHTML = "(" + Math.ceil(localStorage.getItem("Acceleration Time")) + "s)"; 
+}
+if(localStorage.getItem("Acceleration")!= undefined) {
+  document.getElementById("acceleration").innerHTML = localStorage.getItem("Acceleration"); 
+}
+if(localStorage.getItem("Trip Distance")!= undefined) {
+  document.getElementById("tripDistance").innerHTML = localStorage.getItem("Trip Distance"); 
+}
+//end of local storage conditionals
