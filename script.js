@@ -748,3 +748,63 @@ function checkArmed() { //checks if the pod is armed
   }
 }
 //end of graph and distance interval declarations 
+
+  //waits for and confirms acceleration has been input by user
+function checkAcceleration() {
+  if (+document.getElementById("acceleration").innerHTML != "0" && podStatus === "armed") {
+  return true;
+  } else { 
+    setTimeout(checkAcceleration, 100); 
+  }
+}
+//end of checkAcceleration function 
+
+//checks to see if the pod successfully finished braking
+function checkVelocity() {
+  if (+document.getElementById("speed").innerHTML <= 1 && podStatus === "braking") {
+  document.getElementById("speed").innerHTML = 0; 
+  document.getElementById("travelledDistance").innerHTML = document.getElementById("tripDistance").innerHTML; 
+  updateSpeedometer(0); 
+  document.getElementById("rpm").innerHTML = 0; 
+  podStatus = "off"; 
+  document.getElementById("braking-line").style.display = "flex"
+  localStorage.setItem("RPM", 0);
+  stop.click();
+  } else { 
+    setTimeout(checkVelocity, 100); //if the check fails function will continue to look for the check to pass
+  }
+}
+//end of speed check 
+
+function checkBraking() { //this function ensures that the pod is currently breaking by assigning it a negative acceleration 
+  if (podStatus === "braking" && brakingAcceleration != 0) {
+    let speedInterval
+    speedInterval = setInterval(function() {
+      if (podStatus != "off") {
+        let speed = +document.getElementById("speed").innerHTML; 
+        document.getElementById("speed").innerHTML = (((speed/3.6)+ brakingAcceleration)*3.6).toFixed(2); 
+      } else {
+        clearInterval(speedInterval);
+      }
+    }, 1000);
+  } else { 
+    setTimeout(checkBraking, 100);  //the negative acceleration is only assigned when breaking meaning the function must wait for this to occur 
+  }
+}
+
+//waits for and confirms braking criteria has been met, then provides the deceleration necessary to meet the target distance at a halt 
+function checkIfBrake() { 
+  if (podStatus === "coasting" && travelledPercentage >= 80) { //if the pod has travelled 80% of its trip and is moving at a constant velocity 
+    document.getElementById("coasting-line").style.display = "flex"
+    podStatus = "braking";
+    let distanceLeft = (+document.getElementById("tripDistance").innerHTML) - (+document.getElementById("travelledDistance").innerHTML);
+    let currentSpeed = (+document.getElementById("speed").innerHTML)/3.6; 
+    let finalSpeed = 0; 
+    brakingAcceleration = ((currentSpeed ** 2)/(-2 * (distanceLeft))); //deceleration in m/s^2 calculated using kinematics 
+    localStorage.setItem("Acceleration", brakingAcceleration); 
+    document.getElementById("acceleration").innerHTML = brakingAcceleration; //stores the deceleration for use in the checkBraking() function 
+  } else { 
+    setTimeout(checkIfBrake, 100); //must continiously preform checks until the if statement is true 
+  }
+}
+//end of checkIfBrake() function 
