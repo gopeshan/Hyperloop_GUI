@@ -191,3 +191,87 @@ if(localStorage.getItem("Trip Distance")!= undefined) {
   document.getElementById("tripDistance").innerHTML = localStorage.getItem("Trip Distance"); 
 }
 //end of local storage conditionals
+
+  //start of pod image distance calculation, this function calculates the distance remaining and finds that information as a percentage which is 
+//stored to be used later in the CSS to ensure the pod is moving correctly on the bottom of the dashboard
+function updatePodDistance () { 
+let targetDistance = document.getElementById("tripDistance").innerHTML; 
+let travelledDistance = document.getElementById('travelledDistance').innerHTML;
+let podImageDistance = document.getElementById('pod-distance');
+travelledPercentage = ((+travelledDistance)/(+targetDistance))*100
+podImageDistance.style.setProperty('--pod-width',travelledPercentage + '%');
+} 
+//end of pod image distance calculation 
+
+//start of graph acceleration
+let accelerationCanvas = document.getElementById("accelerationGraph"); //graph is linked to html 
+let dataPointsAcceleration = [];
+let accelerationData = { //data is described
+    labels: [],
+    datasets: [{
+        label: "Acceleration",
+        data: dataPointsAcceleration,
+        borderColor: "grey",
+        pointRadius: 3
+    }]
+};
+
+let chartOptionsAcceleration = { //chart options are selected
+    maintainAspectRatio: false,
+    responsive: false, 
+    scales: {
+      x: {
+          ticks: {
+              display: false
+          }
+      },
+      y: {
+        ticks: {
+            display: false
+        }
+    }
+  }
+};
+
+let accelerationChart = new Chart(accelerationCanvas, { //graph is defined
+    type: 'line',
+    data: accelerationData,
+    options: chartOptionsAcceleration,
+});
+
+let currentAcceleration = +(localStorage.getItem("Acceleration")); 
+if (currentAcceleration === "" || currentAcceleration === undefined) currentAcceleration = 3.7;  
+let currentTime = new Date().toLocaleTimeString();
+
+function startupAcceleration() { //function is created to enable a default current acceleration 
+currentAcceleration = +(localStorage.getItem("Acceleration"));
+if (currentAcceleration === "" || currentAcceleration === undefined) currentAcceleration = 3.7;  
+let currentTime = new Date().toLocaleTimeString();
+dataPointsAcceleration.push(currentAcceleration);
+accelerationData.labels.push(currentTime);
+accelerationChart.update();
+}
+
+function addDataAcceleration() { //function that goes through and draws the graph based on prevous definitions
+    let updateFromLocalAcceleration = localStorage.getItem("Acceleration"); 
+    if(updateFromLocalAcceleration != 0) { //math here is done to replicate a semi-realistc acceleration (not constant)
+    currentAcceleration += Math.random() * (2*(+updateFromLocalAcceleration/100)) - (+updateFromLocalAcceleration/100);
+    if(currentAcceleration > +updateFromLocalAcceleration/2) currentAcceleration - 2*(+updateFromLocalAcceleration/100); 
+    if(currentAcceleration < +updateFromLocalAcceleration/-2) currentAcceleration + 2*(+updateFromLocalAcceleration/100); 
+    } else {
+      currentAcceleration = 0;  
+    }
+    currentTime = new Date().toLocaleTimeString();
+
+    if (dataPointsAcceleration.length >= 10) { //causes the graph to shift and only include 10 points
+        dataPointsAcceleration.shift();
+        accelerationData.labels.shift();
+    }
+
+    localStorage.setItem("Acceleration", (currentAcceleration).toFixed(2));
+    document.getElementById("acceleration").innerHTML = localStorage.getItem("Acceleration"); 
+    dataPointsAcceleration.push(currentAcceleration);
+    accelerationData.labels.push(currentTime);
+    accelerationChart.update();
+}
+//end of graph acceleration
