@@ -70,3 +70,49 @@ window.onload = function() {
       document.getElementById("menu-middle").style.display = "none"
       document.getElementById("alertsMiddle").style.display = "flex"
     });
+
+  const errors = document.getElementById("errors"); //notifications shortcut button 
+    errors.addEventListener('click', function() {
+      document.getElementById("alertsMiddle").style.display = "flex"
+      document.getElementById("inputsMiddle").style.display = "none"
+      document.getElementById("podsystemMiddle").style.display = "none"
+      document.getElementById("podsystemSidebar").style.display = "none"
+      document.getElementById("menuSidebar").style.display = "none"
+      document.getElementById("menu-middle").style.display = "none"
+      document.getElementById("dashboardMiddle").style.display = "none"
+    });
+
+    const podSystem = document.getElementById("inputs"); //inputs page main button 
+    podSystem.addEventListener('click', function() {
+      document.getElementById("menuSidebar").style.display = "none"
+      document.getElementById("menu-middle").style.display = "none"
+      document.getElementById("inputsMiddle").style.display = "flex"
+    });
+
+    const userInputs = document.getElementById("userInputs"); //shortcuts user inputs button 
+    userInputs.addEventListener('click', function() {
+      document.getElementById("alertsMiddle").style.display = "none"
+      document.getElementById("inputsMiddle").style.display = "flex"
+      document.getElementById("podsystemMiddle").style.display = "none"
+      document.getElementById("podsystemSidebar").style.display = "none"
+      document.getElementById("menuSidebar").style.display = "none"
+      document.getElementById("menu-middle").style.display = "none"
+      document.getElementById("dashboardMiddle").style.display = "none"
+    });
+
+    const closeButtons = document.querySelectorAll(".closebtn"); //uses a loop to select all alerts and allow them to be closed with the "x" close button
+    closeButtons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        const alertBox = this.parentElement;
+        alertBox.style.display = "none";
+      });
+    });
+
+    const saveChanges = document.getElementById("saveChanges"); //save changes button on the inputs page, triggers functions to initialize graphs 
+    saveChanges.addEventListener('click', function() {
+      startupTemp(); 
+      startupVoltage(); 
+      startupAcceleration(); 
+      startupRPM(); 
+    });
+    //end of page functionality
