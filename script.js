@@ -3,6 +3,13 @@ window.onload = function() {
 
   //variables declared
     let podStatus = "off"; //represents the stat of the pod 
+    let wheelRadius = 0.3; //meters (used in rpm calculation)
+    let speedCounter = 0;  
+    let travelledPercentage = 0; //represents the distance the pod has travelled along the bar 
+    let brakingAcceleration = 0; //
+    let tripLength = 0 
+    let batteryLevel = 100; //maximum battery percentage 
+    //end of variable declaration 
   
 //start of page functionality, by hiding elements the single html file can appear to represent multiple pages 
     const homeButton = document.getElementById("homeLogo"); //home logo (acts as a button to return to the home page)
@@ -808,3 +815,13 @@ function checkIfBrake() {
   }
 }
 //end of checkIfBrake() function 
+
+  //function calls for all of the checks 
+checkCondition();
+checkArmed(); 
+checkIfBrake(); 
+checkVelocity(); 
+checkBraking(); 
+//end of function calls
+
+} //end of window onload function 
