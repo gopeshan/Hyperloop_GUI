@@ -275,3 +275,201 @@ function addDataAcceleration() { //function that goes through and draws the grap
     accelerationChart.update();
 }
 //end of graph acceleration
+
+  //start of pod image distance calculation, this function calculates the distance remaining and finds that information as a percentage which is 
+//stored to be used later in the CSS to ensure the pod is moving correctly on the bottom of the dashboard
+function updatePodDistance () { 
+let targetDistance = document.getElementById("tripDistance").innerHTML; 
+let travelledDistance = document.getElementById('travelledDistance').innerHTML;
+let podImageDistance = document.getElementById('pod-distance');
+travelledPercentage = ((+travelledDistance)/(+targetDistance))*100
+podImageDistance.style.setProperty('--pod-width',travelledPercentage + '%');
+} 
+//end of pod image distance calculation 
+
+//start of graph acceleration
+let accelerationCanvas = document.getElementById("accelerationGraph"); //graph is linked to html 
+let dataPointsAcceleration = [];
+let accelerationData = { //data is described
+    labels: [],
+    datasets: [{
+        label: "Acceleration",
+        data: dataPointsAcceleration,
+        borderColor: "grey",
+        pointRadius: 3
+    }]
+};
+
+let chartOptionsAcceleration = { //chart options are selected
+    maintainAspectRatio: false,
+    responsive: false, 
+    scales: {
+      x: {
+          ticks: {
+              display: false
+          }
+      },
+      y: {
+        ticks: {
+            display: false
+        }
+    }
+  }
+};
+
+let accelerationChart = new Chart(accelerationCanvas, { //graph is defined
+    type: 'line',
+    data: accelerationData,
+    options: chartOptionsAcceleration,
+});
+
+let currentAcceleration = +(localStorage.getItem("Acceleration")); 
+if (currentAcceleration === "" || currentAcceleration === undefined) currentAcceleration = 3.7;  
+let currentTime = new Date().toLocaleTimeString();
+
+function startupAcceleration() { //function is created to enable a default current acceleration 
+currentAcceleration = +(localStorage.getItem("Acceleration"));
+if (currentAcceleration === "" || currentAcceleration === undefined) currentAcceleration = 3.7;  
+let currentTime = new Date().toLocaleTimeString();
+dataPointsAcceleration.push(currentAcceleration);
+accelerationData.labels.push(currentTime);
+accelerationChart.update();
+}
+
+function addDataAcceleration() { //function that goes through and draws the graph based on prevous definitions
+    let updateFromLocalAcceleration = localStorage.getItem("Acceleration"); 
+    if(updateFromLocalAcceleration != 0) { //math here is done to replicate a semi-realistc acceleration (not constant)
+    currentAcceleration += Math.random() * (2*(+updateFromLocalAcceleration/100)) - (+updateFromLocalAcceleration/100);
+    if(currentAcceleration > +updateFromLocalAcceleration/2) currentAcceleration - 2*(+updateFromLocalAcceleration/100); 
+    if(currentAcceleration < +updateFromLocalAcceleration/-2) currentAcceleration + 2*(+updateFromLocalAcceleration/100); 
+    } else {
+      currentAcceleration = 0;  
+    }
+    currentTime = new Date().toLocaleTimeString();
+
+    if (dataPointsAcceleration.length >= 10) { //causes the graph to shift and only include 10 points
+        dataPointsAcceleration.shift();
+        accelerationData.labels.shift();
+    }
+
+    localStorage.setItem("Acceleration", (currentAcceleration).toFixed(2));
+    document.getElementById("acceleration").innerHTML = localStorage.getItem("Acceleration"); 
+    dataPointsAcceleration.push(currentAcceleration);
+    accelerationData.labels.push(currentTime);
+    accelerationChart.update();
+}
+//end of graph acceleration
+
+  //start of graph creation temperature
+let tempCanvas = document.getElementById("tempGraph"); //graph is linked to html canvas tag with id "tempgraph"
+let dataPointsTemp = [];
+let tempData = { //data is described 
+    labels: [], 
+    datasets: [{
+        label: "Temperature",
+        data: dataPointsTemp,
+        borderColor: "rgba(238,188,49,255)",
+        pointRadius: 3
+    }]
+};
+
+let chartOptionsTemp = { //chart options are selected 
+    maintainAspectRatio: false,
+};
+
+let tempChart = new Chart(tempCanvas, { //chart charadcteristics are defined 
+    type: 'line',
+    data: tempData,
+    options: chartOptionsTemp
+});
+
+let currentTemp = +(localStorage.getItem("Motor Temperature")); 
+if (currentTemp === "" || currentTemp === undefined || currentTemp === 0.0) currentTemp = 45;  
+currentTime = new Date().toLocaleTimeString();
+
+function startupTemp() { //default case
+currentTemp = +(localStorage.getItem("Motor Temperature")); 
+if (currentTemp === "" || currentTemp === undefined || currentTemp === 0.0) currentTemp = 45;  
+let currentTime = new Date().toLocaleTimeString();
+dataPointsTemp.push(currentTemp);
+tempData.labels.push(currentTime);
+tempChart.update();
+}
+
+function addDataTemp() { //function that prints the graph to the screen 
+    let updateFromLocalTemp = localStorage.getItem("Motor Temperature"); 
+    
+    //math calculations generate random values within a set range that cannot be left 
+    currentTemp += Math.random() * (2*(+updateFromLocalTemp/100)) - (+updateFromLocalTemp/100);
+    if(currentTemp > +updateFromLocalTemp/2) currentTemp - 2*(+updateFromLocalTemp/100); 
+    if(currentTemp < +updateFromLocalTemp/-2) currentTemp + 2*(+updateFromLocalTemp/100); 
+    currentTime = new Date().toLocaleTimeString();
+
+    if (dataPointsTemp.length >= 10) { //only 10 data points remain on the screen 
+        dataPointsTemp.shift();
+        tempData.labels.shift();
+    }
+
+    localStorage.setItem("Motor Temperature", (currentTemp).toFixed(1));
+    document.getElementById("motor").innerHTML = localStorage.getItem("Motor Temperature"); 
+    dataPointsTemp.push(currentTemp);
+    tempData.labels.push(currentTime);
+    tempChart.update();
+}
+//end of graph creation temperature
+
+//start of graph creation voltage
+let voltageCanvas = document.getElementById("voltageGraph"); //graph is linked to html 
+let dataPointsVoltage = [];
+let voltageData = { //data is described 
+    labels: [],
+    datasets: [{
+        label: "Voltage",
+        data: dataPointsVoltage,
+        borderColor: "rgba(238,188,49,255)",
+        pointRadius: 3
+    }]
+};
+
+let chartOptionsVoltage = { //settings are selected 
+    maintainAspectRatio: false,
+};
+
+let voltageChart = new Chart(voltageCanvas, { //graph type is declared 
+    type: 'line',
+    data: voltageData,
+    options: chartOptionsVoltage
+});
+
+let currentVoltage = +(localStorage.getItem("Main Battery Voltage"));
+if (currentVoltage === "" || currentVoltage === undefined || currentVoltage === 0.0) currentVoltage = 48.1;  
+currentTime = new Date().toLocaleTimeString();
+
+function startupVoltage() {  //default case is provided
+currentVoltage = +(localStorage.getItem("Main Battery Voltage"));
+if (currentVoltage === "" || currentVoltage === undefined || currentVoltage === 0.0) currentVoltage = 48.1;  
+let currentTime = new Date().toLocaleTimeString();
+dataPointsVoltage.push(currentVoltage);
+voltageData.labels.push(currentTime);
+voltageChart.update();
+}
+
+function addDataVoltage() { //function that prints the graph and runs a singular cycle
+    let updateFromLocalVoltage = localStorage.getItem("Main Battery Voltage");   
+    currentVoltage += Math.random() * (2*(+updateFromLocalVoltage/100)) - (+updateFromLocalVoltage/100);
+    if(currentVoltage > +updateFromLocalVoltage/2) currentVoltage - 2*(+updateFromLocalVoltage/100); 
+    if(currentVoltage < +updateFromLocalVoltage/-2) currentVoltage + 2*(+updateFromLocalVoltage/100); 
+    currentTime = new Date().toLocaleTimeString();
+
+    if (dataPointsVoltage.length >= 10) { //allows only 10 data points in the view 
+        dataPointsVoltage.shift();
+        voltageData.labels.shift();
+    }
+
+    localStorage.setItem("Main Battery Voltage", (currentVoltage).toFixed(1));
+    document.getElementById("mainBatteryVoltage").innerHTML = localStorage.getItem("Main Battery Voltage"); 
+    dataPointsVoltage.push(currentVoltage);
+    voltageData.labels.push(currentTime);
+    voltageChart.update();
+}
+// end of graph voltage
