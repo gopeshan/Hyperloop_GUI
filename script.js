@@ -473,3 +473,138 @@ function addDataVoltage() { //function that prints the graph and runs a singular
     voltageChart.update();
 }
 // end of graph voltage
+
+  //start of battery tracker on the dashboard
+const data = { //data is defined 
+  datasets: [{
+    data: [batteryLevel, 100-batteryLevel],
+    backgroundColor: ['#32CD32', '#111016'],
+    borderWidth: 0,
+    hoverBackgroundColor: ['white', '#111016']
+  }]
+};
+
+const options = { //options are selected for the battery 
+  responsive: false,
+  cutout: '80%',
+  rotation: 0,
+  circumference: 360,
+};
+
+const chart = new Chart('battery-chart', { //chart type is declared 
+  type: 'doughnut',
+  data: data,
+  options: options
+});
+//end of battery tracker 
+
+//start of speedometer
+const needle = document.querySelector('.needle'); //needle element in html is assigned a variable 
+const value = document.querySelector('.value'); //value element in html is assigned a variable 
+const maxSpeed = 1000; //maximum speed the speedometer will show in km/h before looping around for a second time 
+
+function updateSpeedometer(speed) { //calculates the position of the needle based on the input speed value
+  const angle = speed / maxSpeed * 270 - 135;
+  needle.style.transform = `rotate(${angle}deg)`;
+  value.innerHTML = (+document.getElementById("speed").innerHTML).toFixed();
+}
+//end of speedometer
+
+//navigation buttons on the dashboard 
+const start = document.getElementById("start"); //start button 
+    start.addEventListener('click', function() {
+      //using a constantly listening function it, a check is preformed to ensure it can launch
+      if(checkAcceleration() === true && +document.getElementById("accelerationTime").innerHTML != 0) {
+        podStatus = "accelerating";
+        document.getElementById("armed-line").style.display = "flex" //causes the status bar at the top to show the pod has begun its journey 
+        underway.style.zIndex = 2; //all z index changes are to display different buttons that exist under the current navigation buttons depending on the situation 
+        start.style.zIndex = 1; 
+        document.getElementById("accelerationTime").style.display = "flex" //shows the time that the pod will accelerate for 
+        let count = Math.ceil(+localStorage.getItem("Acceleration Time"));
+
+        const countdownInterval = setInterval (() => { //function acts on 1s intervals and calculates the speed using kinematics while also decrementing the time in the status bar 
+          if(count === 0) { //if the acceleration has been completed
+            clearInterval(countdownInterval); //stops the countdown
+            document.getElementById("accelerationTime").style.display = "none" //stops the acceleration time from showing 
+            podStatus = "coasting"; 
+            if(podStatus === "coasting") { 
+            localStorage.setItem("Acceleration", 0);  
+            }
+            document.getElementById("acceleration").innerHTML = 0;  
+            document.getElementById("accelerating-line").style.display = "flex"
+            return; 
+          }
+          speedCounter++; 
+          document.getElementById("accelerationTime").innerHTML = "(" + count + "s)"; 
+          document.getElementById("speed").innerHTML = (speedCounter * +document.getElementById("acceleration").innerHTML * 3.6).toFixed(2); 
+          count--;
+        }, 1000); //operates on 1s intervals 
+
+      } else { //if the check for launch failed 
+        //alert is sent out to let the user know that an acceleration in m/s^2 and a duration must be input 
+        document.getElementById("popup-error-message-launch").innerHTML = "Error! No acceleration details detected " + new Date().toLocaleTimeString();
+            document.getElementById("alert-error-message-launch").innerHTML = "Error! No acceleration details detected " + new Date().toLocaleTimeString();
+            document.getElementById("popup-error-launch").style.display = "flex";
+            document.getElementById("alert-error-launch").style.display = "flex";
+            setTimeout(function() {
+              document.getElementById("popup-error-launch").style.display = "none";
+            }, 5000); //notification will last for 5s and then must be found in the alerts section 
+      }
+    });
+
+//stop button on the dashboard
+const stop = document.getElementById("stop");
+    stop.addEventListener('click', function() { //when the stop button is clicked, the pod is stopped so must indicate that with the status bar at the top of the dashboard 
+      document.getElementById("off-line").style.display = "flex"
+      document.getElementById("armed-line").style.display = "flex"
+      document.getElementById("accelerating-line").style.display = "flex"
+      document.getElementById("coasting-line").style.display = "flex"
+      document.getElementById("braking-line").style.display = "flex"
+      reset.style.zIndex = 2; //hides the stop button since the system must be reset before it can be stopped again 
+      stop.style.zIndex = 1; 
+      podStatus = "off"; 
+      document.getElementById("speed").innerHTML = 0;  
+      updateSpeedometer(0); //makes sure the speedometer has been turned off
+      document.getElementById("rpm").innerHTML = 0; 
+      localStorage.setItem("RPM", 0); 
+      localStorage.setItem("Acceleration", 0); 
+      document.getElementById("acceleration").innerHTML = 0;
+
+      //alert indicating the pod has come to a stop 
+      document.getElementById("popup-success-message-stop").innerHTML = "Success! The pod is stationary. " + new Date().toLocaleTimeString();
+      document.getElementById("alert-success-message-stop").innerHTML = "Success! The pod is stationary. " + new Date().toLocaleTimeString();
+      document.getElementById("popup-success-stop").style.display = "flex";
+      document.getElementById("alert-success-stop").style.display = "flex";
+      setTimeout(function() {
+        document.getElementById("popup-success-stop").style.display = "none";
+      }, 5000); //displays for 5 seconds 
+    });   
+
+const check = document.getElementById("check"); //check button on the navigation 
+    check.addEventListener('click', function() {
+      if (readyCheck() === true) { //utilizes a function which checks a series of preferences before proceeding 
+      document.getElementById("off-line").style.display = "flex"
+      document.getElementById("armed-line").style.display = "none"
+      document.getElementById("accelerating-line").style.display = "none"
+      document.getElementById("coasting-line").style.display = "none"
+      document.getElementById("braking-line").style.display = "none"
+      check.style.zIndex = 1; 
+      start.style.zIndex = 2; 
+      document.getElementById("travelledDistance").innerHTML = "0"
+      } else { //if the check fails 
+        //system sends out a warning explaining possible reasons for the failure 
+        document.getElementById("popup-warning-message-check").innerHTML = "Warning! Arming failed, ensure pod is stationary. " + new Date().toLocaleTimeString();
+        document.getElementById("alert-warning-message-check").innerHTML = "Warning! Arming failed, ensure pod is stationary. " + new Date().toLocaleTimeString();
+        document.getElementById("popup-warning-check").style.display = "flex";
+        document.getElementById("alert-warning-check").style.display = "flex";
+        setTimeout(function() {
+          document.getElementById("popup-warning-check").style.display = "none";
+        }, 5000); 
+      }
+    });    
+  
+const reset = document.getElementById("reset"); //reset button on the navigation
+    reset.addEventListener('click', function() {
+      location.reload();  //resets by reloading the web page
+    });
+//end of navigation buttons 
